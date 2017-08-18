@@ -9,7 +9,7 @@ class sdkman::install(
   }
 
   exec { 'install-sdkman':
-    command => "curl -s get.sdkmantool.net | bash",
+    command => 'curl -s "https://get.sdkman.io" | bash',
     creates => "/Users/${::boxen_user}/.sdkman/etc/config",
     require => Exec['selfupdate-sdkman'],
   }
