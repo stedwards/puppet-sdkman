@@ -7,7 +7,7 @@ define sdkman::groovyserv(
 
   exec { "install-groovyserv-$name":
     command => "bash --login -c 'sdk install groovyserv ${version}'",
-    creates => "/Users/${::boxen_user}/.sdkman/candidates/groovyserv/${version}"
+    creates => "${::boxen_home}/sdkman/candidates/groovyserv/${version}"
   }
 
   if($default) {
