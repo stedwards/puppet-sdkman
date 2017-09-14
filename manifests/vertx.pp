@@ -6,8 +6,9 @@ define sdkman::vertx(
   require sdkman::install
 
   exec { "install-vertx-$name":
-    command => "bash --login -c 'sdk install vertx ${version}'",
-    creates => "${::boxen_home}/sdkman/candidates/vertx/${version}"
+    command     => "bash --login -c 'sdk install vertx ${version}'",
+    environment => ["SDKMAN_DIR=${::boxen_home}/sdkman"],
+    creates     => "${::boxen_home}/sdkman/candidates/vertx/${version}"
   }
 
   if($default) {

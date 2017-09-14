@@ -5,13 +5,14 @@ class sdkman::install(
 ) {
 
   exec { 'install-sdkman':
-    command => "export SDKMAN_DIR=\"${::boxen_home}/sdkman\" && curl -s \"https://get.sdkman.io\" | bash",
-    creates => "${::boxen_home}/sdkman/etc/config",
-    before  => File["${boxen::config::envdir}/sdkmanenv.sh"],
+    command     => "bash --login -c 'export SDKMAN_DIR=\"${::boxen_home}/sdkman\" && curl -s \"https://get.sdkman.io\" | bash'",
+    creates     => "${::boxen_home}/sdkman/etc/config",
+    environment => ["SDKMAN_DIR=${::boxen_home}/sdkman"],
+    before      => File["${boxen::config::envdir}/sdkmanenv.sh"],
   }
 
   file { "${boxen::config::envdir}/sdkmanenv.sh":
     ensure  => file,
-    content => "source ${::boxen_home}/sdkman/bin/sdkman-init.sh\n",
+    content => "SDKMAN_DIR=${::boxen_home}/sdkman\nsource ${::boxen_home}/sdkman/bin/sdkman-init.sh\n",
   }
 }

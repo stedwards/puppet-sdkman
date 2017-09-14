@@ -6,8 +6,9 @@ define sdkman::gradle(
   require sdkman::install
 
   exec { "install-gradle-$name":
-    command => "bash --login -c 'sdk install gradle ${version}'",
-    creates => "${::boxen_home}/sdkman/candidates/gradle/${version}"
+    command     => "bash --login -c 'sdk install gradle ${version}'",
+    environment => ["SDKMAN_DIR=${::boxen_home}/sdkman"],
+    creates     => "${::boxen_home}/sdkman/candidates/gradle/${version}"
   }
 
   if($default) {

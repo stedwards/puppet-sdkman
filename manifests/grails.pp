@@ -6,8 +6,9 @@ define sdkman::grails(
   require sdkman::install
 
   exec { "install-grails-$name":
-  	command => "bash --login -c 'sdk install grails ${version}'",
-  	creates => "${::boxen_home}/sdkman/candidates/grails/${version}"
+  	command     => "bash --login -c 'sdk install grails ${version}'",
+    environment => ["SDKMAN_DIR=${::boxen_home}/sdkman"],
+  	creates     => "${::boxen_home}/sdkman/candidates/grails/${version}"
   }
 
   if($default) {
